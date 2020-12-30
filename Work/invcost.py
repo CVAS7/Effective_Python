@@ -10,11 +10,15 @@ print('Total',Total)
 
 """
 import csv
-product = []
-with open('Data/inventory.csv','rt') as FH:
-    csvreader = csv.reader(FH)
-    fields = next(csvreader)
-    for row in csvreader:
-        product.append(int(row[1])*float(row[2]))
+def inventory_cost(filename):
+    product = []
+    
+    with open(filename,'rt') as FH:
+        csvreader = csv.reader(FH)
+        fields = next(csvreader)
+        for row in csvreader:
+            product.append(int(row[1])*float(row[2]))
+    return sum(product)            
 
-print("Total",sum(product))
+cost = inventory_cost('Data/inventory.csv')
+print('Total cost:',cost)
