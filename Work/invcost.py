@@ -1,24 +1,23 @@
-"""
-import pandas as pd
-import numpy
-
-df = pd.read_csv('Data/inventory.csv',skiprows=0,delimiter=",")
-#name,quant,price
-Product = df['quant']*df['price']
-Total = sum(Product)
-print('Total',Total)
-
-"""
 import csv
+import sys 
 def inventory_cost(filename):
-    product = []
+    Total = 0
     
     with open(filename,'rt') as FH:
-        csvreader = csv.reader(FH)
-        fields = next(csvreader)
-        for row in csvreader:
-            product.append(int(row[1])*float(row[2]))
-    return sum(product)            
+        rows = csv.reader(FH)
+        headers = next(rows)
+        for row in rows:
+            quant = int(row[1])
+            price = float(row[2])
+            Total += quant*price
 
-cost = inventory_cost('Data/inventory.csv')
+
+    return Total            
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = 'Data/inventory.csv'
+
+
+cost = inventory_cost(filename)
 print('Total cost:',cost)
