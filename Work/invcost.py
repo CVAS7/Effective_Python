@@ -6,18 +6,19 @@ def inventory_cost(filename):
     with open(filename,'rt') as FH:
         rows = csv.reader(FH)
         headers = next(rows)
-        for row in rows:
-            quant = int(row[1])
-            price = float(row[2])
-            Total += quant*price
-
-
+        for idx,row in enumerate(rows,start=1):
+            record = dict(zip(headers, row))
+            try:
+                quant = int(record['quant'])
+                price = float(record['price'])
+                Total += quant*price
+            except ValueError:
+                print(f"Row {idx} :Bad Row {row}")
     return Total            
-if len(sys.argv) == 2:
+try:
     filename = sys.argv[1]
-else:
+except IndexError:
+    print('Filename is not given in the arugment, filename taken as Default Data/inventory.csv')
     filename = 'Data/inventory.csv'
-
-
 cost = inventory_cost(filename)
 print('Total cost:',cost)
