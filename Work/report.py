@@ -31,7 +31,7 @@ def read_prices(filename):
 def make_report(inventory,prices):
     report = []
     for i in inventory:
-        row = (i['name'],i['quant'],prices[i['name']],(prices[i['name']]-i['price'])) # This should be price or latest also works
+        row = (i['name'],i['quant'],prices[i['name']],(prices[i['name']]-i['price'])) 
         report.append(row)
         
     return report
@@ -43,7 +43,7 @@ def print_report(report):
     print('{:>10} {:>10} {:>10} {:>10}'.format(*dashs))
     
     for row in report:
-            print('{:>10s} {:>10d} {:>10.2f} {:>10.2f}'.format(*row)) # what happens if length of name is more than 10 char
+            print('{:>10s} {:>10d} {:>10.2f} {:>10.2f}'.format(*row))
 
 def inventory_report(inventory_filename,price_filename):
     inventory = read_inventory(inventory_filename)
