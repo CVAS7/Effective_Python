@@ -1,5 +1,5 @@
 import csv
-def parse_csv(filename, select=None):
+def parse_csv(filename, select=None, types=None):
     with open(filename) as f:
         rows =csv.reader(f)
         headers = next(rows)
@@ -13,8 +13,10 @@ def parse_csv(filename, select=None):
         for row in rows:
             if not row :
                 continue
-            if indices:
+            if select:
                 row = [row[index] for index in indices]
+            if types:
+                row = [func(value) for func, value in zip(types, row)]
             record = dict(zip(headers,row))
             records.append(record)
 
