@@ -1,13 +1,21 @@
 import csv
-def parse_csv(filename):
+def parse_csv(filename, select=['name','quant','price']):
     with open(filename) as f:
         rows =csv.reader(f)
         headers = next(rows)
+        if select:
+            indices = [headers.index(colname) for colname in select]
+            headers = select
+        else:
+            indices = []
+
         records = []
         for row in rows:
             if not row :
                 continue
-            record = dict(zip(headers,rows))
+            if indices:
+                row = [row[index] for index in indices]
+            record = dict(zip(headers,row))
             records.append(record)
 
     return records
