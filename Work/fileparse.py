@@ -1,5 +1,5 @@
 import csv
-def parse_csv(filename, select=['name','quant','price']):
+def parse_csv(filename, select=None):
     with open(filename) as f:
         rows =csv.reader(f)
         headers = next(rows)
