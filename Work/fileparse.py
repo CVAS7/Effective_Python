@@ -1,5 +1,8 @@
 import csv
 def parse_csv(filename, select=None, types=None, has_headers=True,delimiter=','):
+    if select and not has_headers:
+        raise RuntimeError("select header requires headers")
+    print(f'{filename:-^43s}')
     with open(filename) as f:
         rows =csv.reader(f,delimiter = delimiter)
         if has_headers:
@@ -29,4 +32,3 @@ def parse_csv(filename, select=None, types=None, has_headers=True,delimiter=',')
             records.append(record)
 
     return records
-# Testing
