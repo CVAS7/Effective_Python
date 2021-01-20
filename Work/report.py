@@ -1,32 +1,15 @@
 import csv
 from pprint import pprint
+from fileparse import parse_csv 
 
 def read_inventory(filename):
-    with open(filename,'rt') as FH:
-        rows = csv.reader(FH)
-        header = next(rows)
-        inventory = []
-        
-        for r in rows:
-            product = dict(zip(header, r))
-            product['quant'] = int(product['quant']) # updating the data type
-            product['price'] = float(product['price']) # updating the date type
-            inventory.append(product)
-    
+    inventory = parse_csv(filename, select =['name', 'quant', 'price'], types = [str ,int, float])
     return inventory
 
 def read_prices(filename):
-    with open(filename,'rt') as FH:
-        rows = csv.reader(FH)
-        prices = {}
-        
-        for line in rows:
-            try:
-                prices[line[0]] = float(line[1])
-            except IndexError:
-                continue
-    
-    return prices
+    pricelist = parse_csv(filename, types =[str, float], has_headers=False)
+    pricesdict = dict(pricelist)
+    return pricesdict
 
 def make_report(inventory,prices):
     report = []
@@ -51,4 +34,5 @@ def inventory_report(inventory_filename,price_filename):
     report = make_report(inventory,latest)
     print_report(report)
 
-inventory_report('Data/inventory.csv','Data/prices.csv')
+if __name__ == "__main__":
+    inventory_report('Data/inventory.csv','Data/prices.csv')
