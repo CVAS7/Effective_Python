@@ -3,11 +3,13 @@ from pprint import pprint
 from fileparse import parse_csv 
 
 def read_inventory(filename):
-    inventory = parse_csv(filename, select =['name', 'quant', 'price'], types = [str ,int, float])
+    with open(filename) as FH:
+        inventory = parse_csv(FH, select =['name', 'quant', 'price'], types = [str ,int, float])
     return inventory
 
 def read_prices(filename):
-    pricelist = parse_csv(filename, types =[str, float], has_headers=False)
+    with open(filename) as FH:
+        pricelist = parse_csv(FH, types =[str, float], has_headers=False)
     pricesdict = dict(pricelist)
     return pricesdict
 
