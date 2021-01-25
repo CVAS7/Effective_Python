@@ -30,8 +30,8 @@ def print_report(report, formatter):
     #print('{:>10} {:>10} {:>10} {:>10}'.format(*headers))
     #print('{:>10} {:>10} {:>10} {:>10}'.format(*dashs))
     formatter.headings(['Name','Quant','Price','Change'])
-    for name, quant, price, change in reportdata:
-        rowdata = [name, str(qunat),f'{price:0.2f}', f'{change:0.0.f}']
+    for name, quant, price, change in report:
+        rowdata = [name, str(quant),f'{price:0.2f}', f'{change:0.2f}']
         formatter.row(rowdata)
     
     #for row in report:
@@ -41,7 +41,9 @@ def inventory_report(inventory_filename,price_filename):
     inventory = read_inventory(inventory_filename)
     latest = read_prices(price_filename)
     report = make_report(inventory,latest)
-    formatter = tableformat.TableFormatter()
+    #formatter = tableformat.TextTableFormatter()
+    #print_report(report,formatter)
+    formatter = tableformat.CSVTableFormatter()
     print_report(report,formatter)
 
 def main(argv):
