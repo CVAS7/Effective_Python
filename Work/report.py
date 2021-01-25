@@ -1,11 +1,14 @@
 import csv
 from pprint import pprint
 from fileparse import parse_csv 
+from product import Product
+import tableformat
 
 def read_inventory(filename):
     with open(filename) as FH:
         inventory = parse_csv(FH, select =['name', 'quant', 'price'], types = [str ,int, float])
-    return inventory
+        prodinv =[Product(p['name'],p['quant'], p['price'])for p in inventory]
+    return prodinv
 
 def read_prices(filename):
     with open(filename) as FH:
@@ -16,25 +19,30 @@ def read_prices(filename):
 def make_report(inventory,prices):
     report = []
     for i in inventory:
-        row = (i['name'],i['quant'],prices[i['name']],(prices[i['name']]-i['price'])) 
+        row = (i.name,i.quant,prices[i.name],(prices[i.name]-i.price)) 
         report.append(row)
         
     return report
 
-def print_report(report):
-    headers = ('Name', 'Quantity', 'Price', 'Change')
-    dashs = ["-"*10, ]*len(headers)
-    print('{:>10} {:>10} {:>10} {:>10}'.format(*headers))
-    print('{:>10} {:>10} {:>10} {:>10}'.format(*dashs))
+def print_report(report, formatter):
+    #headers = ('Name', 'Quantity', 'Price', 'Change')
+    #dashs = ["-"*10, ]*len(headers)
+    #print('{:>10} {:>10} {:>10} {:>10}'.format(*headers))
+    #print('{:>10} {:>10} {:>10} {:>10}'.format(*dashs))
+    formatter.headings(['Name','Quant','Price','Change'])
+    for name, quant, price, change in reportdata:
+        rowdata = [name, str(qunat),f'{price:0.2f}', f'{change:0.0.f}']
+        formatter.row(rowdata)
     
-    for row in report:
-            print('{:>10s} {:>10d} {:>10.2f} {:>10.2f}'.format(*row))
+    #for row in report:
+            #print('{:>10s} {:>10d} {:>10.2f} {:>10.2f}'.format(*row))
 
 def inventory_report(inventory_filename,price_filename):
     inventory = read_inventory(inventory_filename)
     latest = read_prices(price_filename)
     report = make_report(inventory,latest)
-    print_report(report)
+    formatter = tableformat.TableFormatter()
+    print_report(report,formatter)
 
 def main(argv):
     if len(argv) != 3:
