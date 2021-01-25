@@ -37,14 +37,17 @@ def print_report(report, formatter):
     #for row in report:
             #print('{:>10s} {:>10d} {:>10.2f} {:>10.2f}'.format(*row))
 
-def inventory_report(inventory_filename,price_filename):
+def inventory_report(inventory_filename,price_filename,fmt = 'txt'):
     inventory = read_inventory(inventory_filename)
     latest = read_prices(price_filename)
     report = make_report(inventory,latest)
-    #formatter = tableformat.TextTableFormatter()
-    #print_report(report,formatter)
-    formatter = tableformat.CSVTableFormatter()
-    print_report(report,formatter)
+    if fmt == 'txt':
+        formatter = tableformat.TextTableFormatter()
+        print_report(report,formatter)
+
+    if fmt == 'CSV':
+        formatter = tableformat.CSVTableFormatter()
+        print_report(report,formatter)
 
 def main(argv):
     if len(argv) != 3:
