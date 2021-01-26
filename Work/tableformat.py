@@ -30,9 +30,9 @@ class CSVTableFormatter(TableFormatter):
     def row(self,rowdata):
         print(','.join(rowdata))
 
-class XMLTableFormatter(TableFormatter):
+class HTMLTableFormatter(TableFormatter):
     def headings(self,headers):
         print("<tr><th>{}</th><th>{}</th><th>{}</th><th>{}</th></tr>".format(*headers))
 
     def row(self,rowdata):
-        print("<tr><th>{}</th><th>{}</th><th>{}</th><th>{}</th></tr>".format(*rowdata))
+        print("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(*rowdata))
