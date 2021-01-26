@@ -45,8 +45,12 @@ def inventory_report(inventory_filename,price_filename,fmt = 'txt'):
         formatter = tableformat.TextTableFormatter()
         print_report(report,formatter)
 
-    if fmt == 'CSV':
+    if fmt == 'csv':
         formatter = tableformat.CSVTableFormatter()
+        print_report(report,formatter)
+
+    if fmt == 'xml':
+        formatter = tableformat.XMLTableFormatter()
         print_report(report,formatter)
 
 def main(argv):
