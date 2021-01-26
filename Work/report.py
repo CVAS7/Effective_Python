@@ -41,24 +41,27 @@ def inventory_report(inventory_filename,price_filename,fmt = 'txt'):
     inventory = read_inventory(inventory_filename)
     latest = read_prices(price_filename)
     report = make_report(inventory,latest)
-    if fmt == 'txt':
-        formatter = tableformat.TextTableFormatter()
-        print_report(report,formatter)
+    #if fmt == 'txt':
+        #formatter = tableformat.TextTableFormatter()
+        #print_report(report,formatter)
 
-    if fmt == 'csv':
-        formatter = tableformat.CSVTableFormatter()
-        print_report(report,formatter)
+    #if fmt == 'csv':
+        #formatter = tableformat.CSVTableFormatter()
+        #print_report(report,formatter)
 
-    if fmt == 'html':
-        formatter = tableformat.HTMLTableFormatter()
-        print_report(report,formatter)
+    #if fmt == 'html':
+        #formatter = tableformat.HTMLTableFormatter()
+        #print_report(report,formatter)
+    formatter = tableformat.create_formatter(fmt)
+    print_report(report, formatter)
 
 def main(argv):
-    if len(argv) != 3:
-        raise SystemExit(f'Usage: {argv[0]} ' 'invfile pricefile')
+    if len(argv) != 4:
+        raise SystemExit(f'Usage: {argv[0]} ' 'invfile pricefile format')
     invfile = argv[1]
     pricefile = argv[2]
-    inventory_report(invfile,pricefile)
+    fmt = argv[3]
+    inventory_report(invfile,pricefile,fmt)
 
 if __name__ == "__main__":
     import sys

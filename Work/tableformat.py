@@ -36,3 +36,14 @@ class HTMLTableFormatter(TableFormatter):
 
     def row(self,rowdata):
         print("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(*rowdata))
+
+def create_formatter(fmt):
+
+    if fmt == 'txt':
+        formatter = TextTableFormatter()
+    elif fmt == 'csv':
+        formatter = CSVTableFormatter()
+    elif fmt == 'html':
+        formatter = HTMLTableFormatter()
+
+    return formatter
