@@ -24,3 +24,7 @@ class Product:
         Sell few units of the prdduct
         """
         self.quant = self.quant - sold
+
+    def __repr__(self):
+        return f'Product({self.name!r},{self.quant!r},{self.price!r})'
+
