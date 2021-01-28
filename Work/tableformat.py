@@ -37,6 +37,9 @@ class HTMLTableFormatter(TableFormatter):
     def row(self,rowdata):
         print("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(*rowdata))
 
+class FormatError(Exception):
+    pass
+
 def create_formatter(fmt):
 
     if fmt == 'txt':
@@ -46,7 +49,7 @@ def create_formatter(fmt):
     elif fmt == 'html':
         formatter = HTMLTableFormatter()
     else:
-        raise RuntimeError(f'Unknow table format {name}')
+        raise FormatError(f'Unknow table format {fmt}')
 
     return formatter
 
