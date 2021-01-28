@@ -12,9 +12,9 @@ class TableFormatter: # Parent class
 
 class TextTableFormatter(TableFormatter): # Child class
     def headings(self, headers):
-        #for h in headers:
-            #print(f'{h:>10s}', end= ' ')
-        print("{:>10s} {:>10s} {:>10s} {:>10s}".format(*headers))
+        for h in headers:
+            print(f'{h:>10s}', end= ' ')
+        #print("{:>10s} {:>10s} {:>10s} {:>10s}".format(*headers))
         print()
         print(('-'*10+' ')*len(headers))
 
@@ -45,5 +45,15 @@ def create_formatter(fmt):
         formatter = CSVTableFormatter()
     elif fmt == 'html':
         formatter = HTMLTableFormatter()
+    else:
+        raise RuntimeError(f'Unknow table format {name}')
 
     return formatter
+
+def print_table(objs, select_columns, formatter):
+    formatter.headings(select_columns)
+    for o in objs:
+        rowdata = [str(getattr(o, name)) for name in select_columns] 
+        formatter.row(rowdata)
+
+
