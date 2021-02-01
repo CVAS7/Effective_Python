@@ -12,6 +12,15 @@ class Product:
         self.name = name
         self.quant = quant
         self.price = price
+    @property
+    def quant(self):
+        return self._quant
+
+    @quant.setter
+    def quant(self,value):
+        if not isinstance(value, int):
+            raise('Expected as int')
+        self._quant = value
 
     @property
     def cost(self):
@@ -27,5 +36,5 @@ class Product:
         self.quant = self.quant - sold
 
     def __repr__(self):
-        return f'Product({self.name!r},{self.quant!r},{self.price!r})'
+        return f'Product({self.name!r},{self.quant},{self.price})'
 
