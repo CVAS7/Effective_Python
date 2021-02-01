@@ -13,6 +13,7 @@ class Product:
         self.quant = quant
         self.price = price
 
+    @property
     def cost(self):
         """
         Returns the cost product
