@@ -1,11 +1,10 @@
 import csv
 import sys 
 from report import read_inventory
-import report
 
 def inventory_cost(filename):
     #ive = read_inventory(filename)
-    inventory = report.read_inventory(filename)
+    inventory = read_inventory(filename)
     return inventory.total_cost 
 
 def main(argv):
