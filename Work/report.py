@@ -8,7 +8,8 @@ import tableformat
 def read_inventory(filename):
     with open(filename) as FH:
         inventory = parse_csv(FH, select =['name', 'quant', 'price'], types = [str ,int, float])
-        prodinv =[Product(p['name'],p['quant'], p['price'])for p in inventory]
+        #prodinv =[Product(p['name'],p['quant'], p['price']) for p in inventory]
+        prodinv =[Product(**p) for p in inventory]
     return Inventory(prodinv)
 
 def read_prices(filename):
