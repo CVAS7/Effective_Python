@@ -31,7 +31,8 @@ def parse_product_data(lines):
 def ticker(filename, logfile, fmt):
     inventory = report.read_inventory(filename)
     rows = parse_product_data(follow(logfile))
-    rows = filter_names(rows, inventory)
+#    rows = filter_names(rows, inventory)
+    rows = (row for row in rows if row['name'] in inventory)
     formatter = tableformat.create_formatter(fmt)
     formatter.headings(['Name','Price','Change'])
     for row in rows:
