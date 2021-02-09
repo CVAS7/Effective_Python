@@ -5,12 +5,13 @@ from product import Product
 from inventory import Inventory
 import tableformat
 
-def read_inventory(filename):
+def read_inventory(filename, **opts):
     with open(filename) as FH:
-        inventory = parse_csv(FH, select =['name', 'quant', 'price'], types = [str ,int, float])
+        inventory = Inventory.from_csv(FH)
+        #inventory = parse_csv(FH, select =['name', 'quant', 'price'], types = [str ,int, float],**opts)
         #prodinv =[Product(p['name'],p['quant'], p['price']) for p in inventory]
-        prodinv =[Product(**p) for p in inventory]
-    return Inventory(prodinv)
+        #prodinv =[Product(**p) for p in inventory]
+    return inventory
 
 def read_prices(filename):
     with open(filename) as FH:
