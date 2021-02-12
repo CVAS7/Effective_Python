@@ -1,17 +1,21 @@
 """ 
 Define a prodcut class
 """
+from typedproperty import typedproperty
+
 class Product:
-    """ 
-    Class to repreent a product consisting of name, quant, price
-    """
+    name = typedproperty('name', str)
+    quant = typedproperty('quant',int)
+    price = typedproperty('price', float)
+
+    #__slots__ = ('name', '_quant', 'price')
+
     def __init__ (self, name, quant, price):
-        """
-        Returns the cost product
-        """
         self.name = name
         self.quant = quant
         self.price = price
+
+    """    
     @property
     def quant(self):
         return self._quant
@@ -21,6 +25,7 @@ class Product:
         if not isinstance(value, int):
             raise('Expected as int')
         self._quant = value
+    """
 
     @property
     def cost(self):
@@ -36,5 +41,5 @@ class Product:
         self.quant = self.quant - sold
 
     def __repr__(self):
-        return f'Product({self.name!r},{self.quant},{self.price})'
+        return f'Product({self.name},{self.quant!r},{self.price})'
 
